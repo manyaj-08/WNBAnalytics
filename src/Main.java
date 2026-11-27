@@ -101,6 +101,42 @@ public class Main {
 
 
 
+    private static void rankPlayers(Scanner scanner, List<Player> players) {
+        System.out.println("Rank by: 1) Points per game  2) True shooting %  3) Effective FG %");
+        System.out.print("Enter 1, 2, or 3: ");
+        if (!scanner.hasNextLine()) {
+            return;
+        }
+        String input = scanner.nextLine().trim();
+
+        int statChoice;
+        if (input.equals("1")) {
+            statChoice = 1;
+        } else if (input.equals("2")) {
+            statChoice = 2;
+        } else if (input.equals("3")) {
+            statChoice = 3;
+        } else {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        System.out.println("(Players with about " + PlayerRanker.MIN_FG_ATTEMPTS + "+ field goal attempts)");
+        List<Player> ranked = PlayerRanker.rank(players, statChoice);
+        for (int i = 0; i < ranked.size(); i++) {
+            Player p = ranked.get(i);
+            System.out.printf("%2d. %-26s %s  %.1f%n", i + 1, p.getName(), p.getTeam(),
+                    PlayerRanker.statValue(p, statChoice));
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -136,8 +172,10 @@ public class Main {
                 comparePlayers(scanner, players);
             } else if (choice.equals("3")) {
                 running = false;
+            } else if (choice.equals("4")) {
+                rankPlayers(scanner, players);
             } else {
-                System.out.println("Invalid choice. Please enter 1, 2, or 3.");
+                System.out.println("Invalid choice. Please enter 1, 2, 3, or 4.");
             }
         }
         System.out.println("Goodbye!");
