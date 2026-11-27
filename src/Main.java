@@ -59,6 +59,57 @@ public class Main {
 
 
 
+    private static void comparePlayers(Scanner scanner, List<Player> players) {
+        Player first = promptForPlayer(scanner, players, "Enter the first player's name");
+        if (first == null) {
+            return;
+        }
+        Player second = promptForPlayer(scanner, players, "Enter the second player's name");
+        if (second == null) {
+            return;
+        }
+
+        System.out.println();
+        System.out.printf("%-16s %-26s %-26s %s%n", "Stat", first.getName(), second.getName(), "Leader");
+        printComparisonRow("Points/game", first.getStats().getPointsPerGame(),
+                second.getStats().getPointsPerGame(), first, second);
+        printComparisonRow("True shooting %", StatCalculator.trueShootingPct(first),
+                StatCalculator.trueShootingPct(second), first, second);
+        printComparisonRow("Effective FG %", StatCalculator.effectiveFgPct(first),
+                StatCalculator.effectiveFgPct(second), first, second);
+    }
+
+    private static void printComparisonRow(String label, double firstValue, double secondValue,
+                                           Player first, Player second) {
+        // Compare the values rounded to one decimal, so two numbers that print the same read as a tie
+        long firstRounded = Math.round(firstValue * 10);
+        long secondRounded = Math.round(secondValue * 10);
+
+        String leader;
+        if (firstRounded > secondRounded) {
+            leader = first.getName();
+        } else if (secondRounded > firstRounded) {
+            leader = second.getName();
+        } else {
+            leader = "Tie";
+        }
+        System.out.printf("%-16s %-26.1f %-26.1f %s%n", label, firstValue, secondValue, leader);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private static final String DATA_FILE = "data/box_scores.csv";
 
@@ -84,7 +135,7 @@ public class Main {
             if (choice.equals("1")) {
                 lookUpPlayer(scanner, players);
             } else if (choice.equals("2")) {
-                System.out.println("Compare coming soon");
+                comparePlayers(scanner, players);
             } else if (choice.equals("3")) {
                 running = false;
             } else {
