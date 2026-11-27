@@ -121,7 +121,6 @@ public class Main {
             return;
         }
 
-        System.out.println("(Players with about " + PlayerRanker.MIN_FG_ATTEMPTS + "+ field goal attempts)");
         List<Player> ranked = PlayerRanker.rank(players, statChoice);
         for (int i = 0; i < ranked.size(); i++) {
             Player p = ranked.get(i);
@@ -187,6 +186,7 @@ public class Main {
         System.out.println("1. Look up a player");
         System.out.println("2. Compare two players");
         System.out.println("3. Quit");
+        System.out.println("4. Rank players");
         System.out.print("Choose an option: ");
     }
 }
