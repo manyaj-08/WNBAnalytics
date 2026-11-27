@@ -1,4 +1,4 @@
-// One player's per-game averages for the series, exactly as they appear in the CSV row
+//One player's per-game averages for the series
 public class BoxScoreLine {
     private final int gamesPlayed;
     private final double minutesPerGame;

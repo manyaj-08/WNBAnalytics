@@ -5,8 +5,7 @@ import java.util.Scanner;
 public class Main {
 
 
-    // Loops through the list and returns the matching player, or null if nobody matches.
-// Case and spaces at the ends are ignored; accents must match the CSV (Koné, Salaün).
+    //Loops through the list and returns the matching player or null if nobody matches
     private static Player findPlayer(List<Player> players, String name) {
         for (Player p : players) {
             if (p.getName().equalsIgnoreCase(name.trim())) {
@@ -15,8 +14,7 @@ public class Main {
         }
         return null;
     }
-
-    // Shared by lookup and compare so the "not found" logic exists in one place
+    //The not found logic is in one place
     private static Player promptForPlayer(Scanner scanner, List<Player> players, String prompt) {
         while (true) {
             System.out.print(prompt + " (or 'back' to return to the menu): ");
@@ -81,7 +79,7 @@ public class Main {
 
     private static void printComparisonRow(String label, double firstValue, double secondValue,
                                            Player first, Player second) {
-        // Compare the values rounded to one decimal, so two numbers that print the same read as a tie
+        //Compare the values rounded to one decimal so two numbers that are the same is a tie
         long firstRounded = Math.round(firstValue * 10);
         long secondRounded = Math.round(secondValue * 10);
 
@@ -127,9 +125,9 @@ public class Main {
         while (running) {
             printMenu();
             if (!scanner.hasNextLine()) {
-                break; // input stream closed; exit instead of crashing
+                break; //Input stream closed so it exits instead of crashing
             }
-            // Read a String, not nextInt(), so a typed letter can't throw an exception
+            //Read a string not int so text can't throw an exception
             String choice = scanner.nextLine().trim();
 
             if (choice.equals("1")) {

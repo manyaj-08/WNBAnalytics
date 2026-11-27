@@ -11,7 +11,7 @@ public class CsvLoader {
     public static List<Player> load(String filePath) throws IOException {
         List<Player> players = new ArrayList<>();
 
-        // try-with-resources closes the file for us, even if an error is thrown
+        //try-catch loop if an exception is thrown
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String headerLine = reader.readLine();
             if (headerLine == null) {
@@ -25,7 +25,7 @@ public class CsvLoader {
                 if (!line.isBlank()) {
                     Player player = parseLine(line, lineNumber);
                     if (containsName(players, player.getName())) {
-                        // A duplicate row would make lookups ambiguous
+                        //Check if two rows is the same player
                         throw new IOException("Line " + lineNumber + ": duplicate player " + player.getName());
                     }
                     players.add(player);
@@ -70,7 +70,7 @@ public class CsvLoader {
         }
     }
 
-    // parseDouble accepts negatives and "NaN", which would quietly corrupt the stat math later
+    //Check the value for negative and NaN so it doesn't mess up the math later
     private static double toStat(String text) {
         double value = Double.parseDouble(text.trim());
         if (Double.isNaN(value) || value < 0) {

@@ -1,7 +1,6 @@
 public class StatCalculator {
 
-    // True shooting %: points per shooting possession. The 0.44 estimates how many free throw
-    // attempts end a possession. Per-game inputs work because games played cancels out of the ratio.
+    //True shooting percentage: points per shooting possession and the 0.44 estimates how many free throw
     public static double trueShootingPct(Player p) {
         BoxScoreLine s = p.getStats();
         double shootingPossessions = 2 * (s.getFgAttempted() + 0.44 * s.getFtAttempted());
@@ -9,7 +8,7 @@ public class StatCalculator {
         return s.getPointsPerGame() / shootingPossessions * 100;
     }
 
-    // Effective FG %: gives a made three 1.5x the credit of a made two
+    //Effective field goal percentage: gives a made three pointer 1.5 times the credit of a made two pointer
     public static double effectiveFgPct(Player p) {
         BoxScoreLine s = p.getStats();
         if (s.getFgAttempted() == 0) return 0.0;
