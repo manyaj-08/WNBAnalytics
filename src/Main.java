@@ -101,6 +101,41 @@ public class Main {
 
 
 
+    private static void rankPlayers(Scanner scanner, List<Player> players) {
+        System.out.println("Rank by: 1) Points per game  2) True shooting %  3) Effective FG %");
+        System.out.print("Enter 1, 2, or 3: ");
+        if (!scanner.hasNextLine()) {
+            return;
+        }
+        String input = scanner.nextLine().trim();
+
+        int statChoice;
+        if (input.equals("1")) {
+            statChoice = 1;
+        } else if (input.equals("2")) {
+            statChoice = 2;
+        } else if (input.equals("3")) {
+            statChoice = 3;
+        } else {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        List<Player> ranked = PlayerRanker.rank(players, statChoice);
+        for (int i = 0; i < ranked.size(); i++) {
+            Player p = ranked.get(i);
+            System.out.printf("%2d. %-26s %s  %.1f%n", i + 1, p.getName(), p.getTeam(),
+                    PlayerRanker.statValue(p, statChoice));
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -136,8 +171,10 @@ public class Main {
                 comparePlayers(scanner, players);
             } else if (choice.equals("3")) {
                 running = false;
+            } else if (choice.equals("4")) {
+                rankPlayers(scanner, players);
             } else {
-                System.out.println("Invalid choice. Please enter 1, 2, or 3.");
+                System.out.println("Invalid choice. Please enter 1, 2, 3, or 4.");
             }
         }
         System.out.println("Goodbye!");
@@ -149,6 +186,7 @@ public class Main {
         System.out.println("1. Look up a player");
         System.out.println("2. Compare two players");
         System.out.println("3. Quit");
+        System.out.println("4. Rank players");
         System.out.print("Choose an option: ");
     }
 }
